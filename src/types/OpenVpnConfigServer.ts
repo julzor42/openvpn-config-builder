@@ -1,7 +1,7 @@
-import { OpenVPNConfigAddress, OpenVpnConfigCommon } from '.'
+import { OpenVpnConfigAddress, OpenVpnConfigCommon } from '.'
 
 export type OpenVpnConfigServer = OpenVpnConfigCommon & {
-    server?: OpenVPNConfigAddress
+    server?: OpenVpnConfigAddress
     port?: number
 
     // routes?: OpenVPNConfigAddress[]

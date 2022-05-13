@@ -1,6 +1,11 @@
-export type OpenVPNConfigAddress = {
+export type OpenVpnConfigAddress = {
     address: string
     mask: string
+}
+
+export type OpenVpnFileOrData = string | {
+    embed?: string
+    content?: string
 }
 
 export type OpenVpnConfigCommon = {
@@ -8,10 +13,10 @@ export type OpenVpnConfigCommon = {
     proto?: 'tcp' | 'udp'
 
     // Cryptography
-    ca?: string
-    cert?: string
-    key?: string
-    dh?: string
+    ca?: OpenVpnFileOrData
+    cert?: OpenVpnFileOrData
+    key?: OpenVpnFileOrData
+    dh?: OpenVpnFileOrData
     tlsAuth?: string
     cipher?: string
 

@@ -3,12 +3,12 @@ import { OpenVpnConfigServer } from './types'
 
 export function generateConfigServer(config: OpenVpnConfigServer): string {
     const result: string[] = []
+    
+    if (config.server) result.push(`server ${config.server.address} ${config.server.mask}`)
+    if (config.port) result.push(`port ${config.port}`)
 
     generateCommon(result, config)
     if (config.tlsAuth) result.push(`tls-auth ${config.tlsAuth} 0`)
-
-    if (config.server) result.push(`server ${config.server.address} ${config.server.mask}`)
-    if (config.port) result.push(`port ${config.port}`)
 
     // if (config.routes) {
     //     for (const route of config.routes) {

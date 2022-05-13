@@ -1,13 +1,27 @@
-import { OpenVpnConfigCommon } from './types'
+import { OpenVpnConfigCommon, OpenVpnFileOrData } from './types'
+import fs from 'fs'
+
+function resolveFileOrData(result: string[], key: string, data: OpenVpnFileOrData) {
+    if (typeof (data) === 'string')
+        result.push(`${key} ${data}`)
+    else {
+        result.push(`<${key}>`)
+        if (data.embed)
+            result.push(fs.readFileSync(data.embed).toString())
+        else if (data.content)
+            result.push(data.content)
+        result.push(`</${key}>`)
+    }
+}
 
 export function generateCommon(result: string[], config: OpenVpnConfigCommon) {
     if (config.dev) result.push(`dev ${config.dev}`)
     if (config.proto) result.push(`proto ${config.proto}`)
 
-    if (config.ca) result.push(`ca ${config.ca}`)
-    if (config.cert) result.push(`cert ${config.cert}`)
-    if (config.key) result.push(`key ${config.key}`)
-    if (config.dh) result.push(`dh ${config.dh}`)
+    if (config.ca) resolveFileOrData(result, 'ca', config.ca)
+    if (config.cert) resolveFileOrData(result, 'cert', config.cert)
+    if (config.key) resolveFileOrData(result, 'key', config.key)
+    if (config.dh) resolveFileOrData(result, 'dh', config.dh)
     if (config.cipher) result.push(`cipher ${config.cipher}`)
 
     if (config.persistKey) result.push('persist-key')

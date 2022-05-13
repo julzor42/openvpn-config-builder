@@ -8,7 +8,6 @@ export function generateConfigClient(config: OpenVpnConfigClient): string {
     if (config.remote) result.push(`remote ${config.remote.address} ${config.remote.port}`)
 
     generateCommon(result, config)
-
     if (config.tlsAuth) result.push(`tls-auth ${config.tlsAuth} 1`)
 
     // Flags
